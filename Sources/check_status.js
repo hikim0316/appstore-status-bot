@@ -29,14 +29,15 @@ function checkVersion(app) {
     if(!lastAppInfo || lastAppInfo.status != app.status) {
 
         console.log("status is different");
-        slack.post(app, db.get(submissionStartKey))
+        slack.post(app, db.get(submissionStartKey));
 
         if(app.status == "Waiting For Review") {
             db.set(submissionStartKey, new Date());
         }
     } 
     else {
-       console.log("status is same");  
+        slack.post('same', db.get(submissionStartKey));
+        console.log("status is same");  
     }
 
     db.set(appInfoKey, app);
